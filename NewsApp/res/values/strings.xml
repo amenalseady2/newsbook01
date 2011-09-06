@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, GossipBoard!</string>
+    <string name="app_name">NewsBook</string>
+    <string name="NewPstbtn"></string>
+    <string name="NEW_POST">New Post</string>
+    <string name="NEW_USER">New User</string>
+    <string name="REGISTERED_USER">Registered User</string>
+    <string name="NAME">Name:</string>
+    <string name="EMPTY"></string>
+    <string name="ENTER_YOUR_NAME">Enter Your Name</string>
+    <string name="GENDER">Gender:</string>
+    <string name="main_no_items">No posts to display</string>
+<!-- <string name="AppConnection">http://10.0.2.2:8888/xmlparser</string> -->
+<!--     <string name="AppConnection">http://mynewsapp.appspot.com/xmlparser</string>     -->
+<string name="AppConnection">http://fsnqlatestnews.appspot.com/xmlparser</string>
+<!--<string name="AppConnection">http://gossipscity-test-server.appspot.com/gossipscity</string>-->
+</resources>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="app.news.main"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="5" />
+
+    <application android:icon="@drawable/appicon1"
+		android:label="@string/app_name">
+		<activity android:name="SplashScreen" android:theme="@style/Theme.Transparent">
+			<intent-filter>
+					<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity android:name="TheMainActivity" android:theme="@android:style/Theme.NoTitleBar">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name="RSSFeedList" android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".NewPost" android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name="SearchPost" android:theme="@android:style/Theme.NoTitleBar">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name="SearchResult" android:theme="@android:style/Theme.NoTitleBar">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name="SearchMain" android:theme="@android:style/Theme.NoTitleBar">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name="com.ecs.android.facebook.Sample.AndroidFacebookSample" android:theme="@android:style/Theme.NoTitleBar">
+			<intent-filter>
+			<action android:name="android.intent.action.VIEW" />
+			<category android:name="android.intent.category.DEFAULT" />		
+			</intent-filter>
+		</activity>
+		<activity android:name="News" android:theme="@android:style/Theme.NoTitleBar">
+			<intent-filter>
+			<action android:name="android.intent.action.VIEW" />
+			<category android:name="android.intent.category.DEFAULT" />		
+			</intent-filter>
+		</activity>
+		<activity android:name="Channels" android:theme="@android:style/Theme.NoTitleBar">
+			<intent-filter>
+			<action android:name="android.intent.action.VIEW" />
+			<category android:name="android.intent.category.DEFAULT" />		
+			</intent-filter>
+		</activity>
+		<activity android:name="RSSFeedList" android:theme="@android:style/Theme.NoTitleBar">
+			<intent-filter>
+			<action android:name="android.intent.action.VIEW" />
+			<category android:name="android.intent.category.DEFAULT" />		
+			</intent-filter>
+		</activity>
+		<activity android:name="RSSFeedItem" android:theme="@android:style/Theme.NoTitleBar">
+			<intent-filter>
+			<action android:name="android.intent.action.VIEW" />
+			<category android:name="android.intent.category.DEFAULT" />		
+			</intent-filter>
+		</activity>		
+		<activity android:name="ChannelsPref" android:theme="@android:style/Theme.NoTitleBar">
+			<intent-filter>
+			<action android:name="android.intent.action.VIEW" />
+			<category android:name="android.intent.category.DEFAULT" />		
+			</intent-filter>
+		</activity>		
+		<activity android:name="About" android:theme="@android:style/Theme.NoTitleBar">
+			<intent-filter>
+			<action android:name="android.intent.action.VIEW" />
+			<category android:name="android.intent.category.DEFAULT" />		
+			</intent-filter>
+		</activity>		
+	</application>
+	<uses-permission android:name="android.permission.INTERNET" />
+</manifest>

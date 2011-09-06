@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:padding="10dp">
+	<TextView android:layout_height="wrap_content" android:id="@+id/txtViewSearch"
+		android:layout_width="wrap_content" android:textSize="25dp"
+		android:text="Search"></TextView>
+	<LinearLayout android:layout_height="wrap_content"
+		android:layout_width="match_parent" android:id="@+id/ll1"
+		android:padding="5dp">
+	</LinearLayout>
+	<EditText android:text="" android:id="@+id/txtSearch"
+		android:layout_width="match_parent" android:layout_height="wrap_content"
+		android:maxLength="425" android:maxLines="11"></EditText>
+	<RelativeLayout android:id="@+id/ll5"
+		android:layout_height="wrap_content" android:layout_width="fill_parent"		
+		android:layout_marginLeft="225dp">
+		<Button android:id="@+id/btnSearch" android:layout_width="70dp"
+			android:text="Search" android:layout_height="wrap_content"
+			android:onClick="onClickSearch" android:layout_gravity="right"
+			android:layout_alignParentRight="true"></Button>
+	</RelativeLayout>
+</LinearLayout>
