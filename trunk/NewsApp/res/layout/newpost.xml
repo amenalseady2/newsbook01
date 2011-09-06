@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:padding="10dp">
+	<TextView android:layout_height="wrap_content" android:id="@+id/textView1"
+		android:layout_width="wrap_content" android:textSize="25dp"
+		android:text="Please Share"></TextView>
+	<LinearLayout android:layout_height="wrap_content"
+		android:layout_width="match_parent" android:id="@+id/linearLayout1"
+		android:padding="5dp">
+	</LinearLayout>
+	<EditText android:text="" android:id="@+id/txtShare"
+		android:layout_width="match_parent" android:layout_height="wrap_content"
+		android:maxLength="425" android:maxLines="11"></EditText>
+	<RelativeLayout android:id="@+id/linearLayout5"
+		android:layout_height="wrap_content" android:layout_width="fill_parent"
+		android:layout_marginLeft="225dp">
+		<ImageButton android:id="@+id/imageButton1" android:src="@drawable/facebook_icon"
+			android:layout_height="wrap_content" android:layout_width="wrap_content"
+			android:adjustViewBounds="true"
+			android:layout_toLeftOf="@+id/btnShare"></ImageButton>
+		<Button android:id="@+id/btnShare" android:layout_width="70dp"
+			android:text="Share" android:layout_height="wrap_content"
+			android:onClick="onClickShare"
+			android:layout_alignParentRight="true"></Button>
+	</RelativeLayout>
+	<LinearLayout android:layout_height="wrap_content"
+		android:layout_width="match_parent" android:id="@+id/linearLayout1">
+		<TextView android:layout_height="wrap_content" android:id="@+id/txtAfterPost"
+			android:layout_width="wrap_content" android:text=""></TextView>
+
+	</LinearLayout>
+</LinearLayout>

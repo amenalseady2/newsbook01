@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:padding="10dp">
+	<TextView android:layout_height="wrap_content" android:id="@+id/textView1"
+		android:layout_width="wrap_content" android:textSize="14dp"
+		android:text="For support and suggestions please contact:"
+		android:paddingTop="15dp"></TextView>
+		<TextView android:layout_height="wrap_content" android:id="@+id/textView21"
+		android:layout_width="wrap_content" android:textSize="14dp"
+		android:text="mfaizan.shaikh@gmail.com, naushadqamar@hotmail.com"
+		android:paddingTop="5dp"></TextView>
+	<TextView android:id="@+id/txtAfterPost" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="Team: Faizan Shaikh &amp; Naushad Qamar"
+		android:paddingTop="15dp"></TextView>
+</LinearLayout>
