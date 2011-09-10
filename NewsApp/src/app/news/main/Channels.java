@@ -2,17 +2,14 @@ package app.news.main;
 
 import java.util.ArrayList;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +18,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -55,6 +53,7 @@ public class Channels extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.tt_main);
 		recID = "0";
 
@@ -75,9 +74,8 @@ public class Channels extends ListActivity {
 				Channel selectedItem = (Channel) parent
 						.getItemAtPosition(position);
 				try {
-					Intent intent = new Intent(context,
-							RSSFeedList.class);
-					
+					Intent intent = new Intent(context, RSSFeedList.class);
+
 					intent.putExtra("id", selectedItem.getId());
 					intent.putExtra("name", selectedItem.getName().toString());
 					intent.putExtra("RssLink", selectedItem.getRssLink()
@@ -85,28 +83,26 @@ public class Channels extends ListActivity {
 					intent.putExtra("flag", selectedItem.getFlag());
 
 					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-								
+
 					startActivity(intent);
 
-		
 					/*
-					 Intent intent = new Intent(getApplicationContext(),
-							RSSFeedList.class);
-					intent.putExtra("id", selectedItem.getId());
-					intent.putExtra("name", selectedItem.getName().toString());
-					intent.putExtra("RssLink", selectedItem.getRssLink()
-							.toString());
-					intent.putExtra("flag", selectedItem.getFlag());
-
-					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-					View newView = News.group.getLocalActivityManager()
-							.startActivity("RSSFeedList1", intent)
-							.getDecorView();
-
-					News.group.setContentView(newView);
+					 * Intent intent = new Intent(getApplicationContext(),
+					 * RSSFeedList.class); intent.putExtra("id",
+					 * selectedItem.getId()); intent.putExtra("name",
+					 * selectedItem.getName().toString());
+					 * intent.putExtra("RssLink", selectedItem.getRssLink()
+					 * .toString()); intent.putExtra("flag",
+					 * selectedItem.getFlag());
+					 * 
+					 * intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					 * 
+					 * View newView = News.group.getLocalActivityManager()
+					 * .startActivity("RSSFeedList1", intent) .getDecorView();
+					 * 
+					 * News.group.setContentView(newView);
 					 */
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -147,7 +143,7 @@ public class Channels extends ListActivity {
 				}
 			}
 		});
-		
+
 		new LoadMoreEntries().execute(null, null, null); // loads the entries
 															// for the first
 															// time
@@ -240,7 +236,6 @@ public class Channels extends ListActivity {
 		}
 	}
 
-
 	private class PostAdapter extends ArrayAdapter<Channel> {
 
 		private ArrayList<Channel> items;
@@ -263,8 +258,42 @@ public class Channels extends ListActivity {
 				TextView tt = (TextView) v.findViewById(R.id.toptext);
 				tt.setTextSize(17);
 				tt.setLines(1);
+
 				if (tt != null) {
 					tt.setText(o.getName());
+				}
+				ImageView img = (ImageView) v.findViewById(R.id.icon);
+				
+				if (tt.getText().toString().contains("Aaj Tv")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.aaj_tv));
+				}
+				else if (tt.getText().toString().contains("The News")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.the_news));
+					
+				}
+				else if (tt.getText().toString().contains("CNN")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.cnn));
+				}
+				else if (tt.getText().toString().contains("Nation")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.the_nation));
+				}
+				else if (tt.getText().toString().contains("BBC")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.bbc));
+				}
+				else if (tt.getText().toString().contains("Fox News")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.fox_news_logo));
+				}
+				else if (tt.getText().toString().contains("New York Times")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.new_york_times));
+				}
+				else if (tt.getText().toString().contains("BigNewsNetwork")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.big_news_net));
+				}
+				else if (tt.getText().toString().contains("CBC -")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.cbc_news));
+				}
+				else if (tt.getText().toString().contains("OnePak")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.one_pakistan));
 				}
 			}
 			return v;
@@ -304,5 +333,5 @@ public class Channels extends ListActivity {
 			notifyChange();
 		}
 	}
-	
+
 }

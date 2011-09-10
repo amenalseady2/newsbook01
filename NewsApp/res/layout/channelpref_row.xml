@@ -28,6 +28,12 @@
             android:gravity="center_vertical"
             android:ellipsize="marquee"
             android:maxLines = "2"
-        />
+            android:textColor="@android:color/black"
+            android:textSize="20sp"/>
     </LinearLayout>
+    <ImageView
+        android:id="@+id/channel_pref_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"        
+        android:src="@drawable/cbc_news" />
 </LinearLayout>

@@ -7,11 +7,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class TheMainActivity extends TabActivity {
@@ -35,17 +39,16 @@ public class TheMainActivity extends TabActivity {
 		// Initialize a TabSpec for each tab and add it to the TabHost
 		spec = tabHost
 				.newTabSpec("News")
-				.setIndicator("News", res.getDrawable(R.drawable.tab_newpost))
+				.setIndicator("News")//, res.getDrawable(R.drawable.tab_newpost))
 				.setContent(
 						new Intent(this, News.class)
 								.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
 		tabHost.addTab(spec);
 
-		spec = tabHost
+		spec =   tabHost
 				.newTabSpec("viewPost")
-				.setIndicator("Preferences",
-						res.getDrawable(R.drawable.tab_viewpost))
+				.setIndicator("Favorites")//,res.getDrawable(R.drawable.tab_viewpost))
 				.setContent(
 						new Intent(this, ChannelsPref.class)
 								.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
@@ -54,7 +57,7 @@ public class TheMainActivity extends TabActivity {
 
 		spec = tabHost
 				.newTabSpec("SearchMain")
-				.setIndicator("About", res.getDrawable(R.drawable.tab_search))
+				.setIndicator("About")//, res.getDrawable(R.drawable.tab_search))
 				.setContent(
 						new Intent(this, About.class)
 								.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
@@ -84,8 +87,20 @@ public class TheMainActivity extends TabActivity {
 //			dbHelper.openDB();			
 //			dbHelper.close();
 		}
-		
-		tabHost.setOnTabChangedListener(new OnTabChangeListener() {
+		tabHost.getTabWidget().getLayoutParams().height =30; 
+		  tabHost.getTabWidget().getChildAt(0).getLayoutParams().height = LayoutParams.MATCH_PARENT;		  
+		  tabHost.getTabWidget().getChildAt(1).getLayoutParams().height = LayoutParams.MATCH_PARENT;		  
+		  tabHost.getTabWidget().getChildAt(2).getLayoutParams().height = LayoutParams.MATCH_PARENT;
+		  
+		  
+//		  tabHost.getTabWidget().getChildAt(0).getLayoutParams().width = LayoutParams.WRAP_CONTENT;
+	//	  tabHost.getTabWidget().getChildAt(1).getLayoutParams().width = LayoutParams.WRAP_CONTENT; 
+		//  tabHost.getTabWidget().getChildAt(2).getLayoutParams().width = LayoutParams.WRAP_CONTENT;
+		  
+		  tabHost.getTabWidget().setStripEnabled(false);
+
+		 
+		  tabHost.setOnTabChangedListener(new OnTabChangeListener() {
 
 			@Override
 			public void onTabChanged(String tabId) {
@@ -100,6 +115,5 @@ public class TheMainActivity extends TabActivity {
 				}
 			}
 		});
-	}
-	
+	}	
 }

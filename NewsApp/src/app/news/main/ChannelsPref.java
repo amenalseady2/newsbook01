@@ -343,6 +343,42 @@ public class ChannelsPref extends ListActivity {
 				if (tt != null) {
 					tt.setText(o.getName());
 				}
+				
+				ImageView img = (ImageView) v.findViewById(R.id.channel_pref_icon);
+				
+				if (tt.getText().toString().contains("Aaj Tv")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.aaj_tv));
+				}
+				else if (tt.getText().toString().contains("The News")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.the_news));
+					
+				}
+				else if (tt.getText().toString().contains("CNN")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.cnn));
+				}
+				else if (tt.getText().toString().contains("Nation ")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.the_nation));
+				}
+				else if (tt.getText().toString().contains("BBC")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.bbc));
+				}
+				else if (tt.getText().toString().contains("Fox News")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.fox_news_logo));
+				}
+				else if (tt.getText().toString().contains("New York Times")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.new_york_times));
+				}
+				else if (tt.getText().toString().contains("BigNewsNetwork")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.big_news_net));
+				}
+				else if (tt.getText().toString().contains("CBC -")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.cbc_news));
+				}
+				else if (tt.getText().toString().contains("OnePak")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.one_pakistan));
+				}
+				
+				
 			}
 			updateImage((ImageView) v.findViewById(R.id.imgSelected),(ImageView) v.findViewById(R.id.imgUnselected),o.getFlag());
 			return v;
