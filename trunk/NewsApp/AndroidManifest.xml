@@ -13,81 +13,81 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name="TheMainActivity" android:theme="@android:style/Theme.NoTitleBar">
+		<activity android:name="TheMainActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
 		<activity android:name="RSSFeedList" android:label="@string/app_name"
-			android:theme="@android:style/Theme.NoTitleBar">
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
 		<activity android:name=".NewPost" android:label="@string/app_name"
-			android:theme="@android:style/Theme.NoTitleBar">
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
-		<activity android:name="SearchPost" android:theme="@android:style/Theme.NoTitleBar">
+		<activity android:name="SearchPost" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
-		<activity android:name="SearchResult" android:theme="@android:style/Theme.NoTitleBar">
+		<activity android:name="SearchResult" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
-		<activity android:name="SearchMain" android:theme="@android:style/Theme.NoTitleBar">
+		<activity android:name="SearchMain" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
-		<activity android:name="com.ecs.android.facebook.Sample.AndroidFacebookSample" android:theme="@android:style/Theme.NoTitleBar">
+		<activity android:name="com.ecs.android.facebook.Sample.AndroidFacebookSample" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 			<intent-filter>
 			<action android:name="android.intent.action.VIEW" />
 			<category android:name="android.intent.category.DEFAULT" />		
 			</intent-filter>
 		</activity>
-		<activity android:name="News" android:theme="@android:style/Theme.NoTitleBar">
+		<activity android:name="News" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 			<intent-filter>
 			<action android:name="android.intent.action.VIEW" />
 			<category android:name="android.intent.category.DEFAULT" />		
 			</intent-filter>
 		</activity>
-		<activity android:name="Channels" android:theme="@android:style/Theme.NoTitleBar">
+		<activity android:name="Channels" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 			<intent-filter>
 			<action android:name="android.intent.action.VIEW" />
 			<category android:name="android.intent.category.DEFAULT" />		
 			</intent-filter>
 		</activity>
-		<activity android:name="RSSFeedList" android:theme="@android:style/Theme.NoTitleBar">
+		<activity android:name="RSSFeedList" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 			<intent-filter>
 			<action android:name="android.intent.action.VIEW" />
 			<category android:name="android.intent.category.DEFAULT" />		
 			</intent-filter>
 		</activity>
-		<activity android:name="RSSFeedItem" android:theme="@android:style/Theme.NoTitleBar">
+		<activity android:name="RSSFeedItem" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 			<intent-filter>
 			<action android:name="android.intent.action.VIEW" />
 			<category android:name="android.intent.category.DEFAULT" />		
 			</intent-filter>
 		</activity>		
-		<activity android:name="ChannelsPref" android:theme="@android:style/Theme.NoTitleBar">
+		<activity android:name="ChannelsPref" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 			<intent-filter>
 			<action android:name="android.intent.action.VIEW" />
 			<category android:name="android.intent.category.DEFAULT" />		
 			</intent-filter>
 		</activity>		
-		<activity android:name="About" android:theme="@android:style/Theme.NoTitleBar">
+		<activity android:name="About" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 			<intent-filter>
 			<action android:name="android.intent.action.VIEW" />
 			<category android:name="android.intent.category.DEFAULT" />		

@@ -32,7 +32,7 @@ public class SplashScreen extends Activity {
                 try {
                     synchronized(this){
                         // Wait given period of time or exit on touch
-                        wait(4000);
+                        wait(700);
                     }
                 }
                 catch(InterruptedException ex){                    
