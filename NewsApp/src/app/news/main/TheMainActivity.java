@@ -87,16 +87,15 @@ public class TheMainActivity extends TabActivity {
 //			dbHelper.openDB();			
 //			dbHelper.close();
 		}
-		tabHost.getTabWidget().getLayoutParams().height =30; 
-		  tabHost.getTabWidget().getChildAt(0).getLayoutParams().height = LayoutParams.MATCH_PARENT;		  
-		  tabHost.getTabWidget().getChildAt(1).getLayoutParams().height = LayoutParams.MATCH_PARENT;		  
-		  tabHost.getTabWidget().getChildAt(2).getLayoutParams().height = LayoutParams.MATCH_PARENT;
+		final float scale = getResources().getDisplayMetrics().density;
+		int pixels = (int) (35 * scale + 0.5f);
+		
+		  tabHost.getTabWidget().getChildAt(0).getLayoutParams().height = pixels;		  
+		  tabHost.getTabWidget().getChildAt(1).getLayoutParams().height = pixels;		  
+		  tabHost.getTabWidget().getChildAt(2).getLayoutParams().height = pixels;
 		  
 		  
-//		  tabHost.getTabWidget().getChildAt(0).getLayoutParams().width = LayoutParams.WRAP_CONTENT;
-	//	  tabHost.getTabWidget().getChildAt(1).getLayoutParams().width = LayoutParams.WRAP_CONTENT; 
-		//  tabHost.getTabWidget().getChildAt(2).getLayoutParams().width = LayoutParams.WRAP_CONTENT;
-		  
+
 		  tabHost.getTabWidget().setStripEnabled(false);
 
 		 
