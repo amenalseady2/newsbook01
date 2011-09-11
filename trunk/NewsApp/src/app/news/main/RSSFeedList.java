@@ -17,6 +17,7 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,7 +34,7 @@ public class RSSFeedList extends ListActivity {
 	private ArrayList<Post> m_posts = null;
 	public PostAdapter m_adapter;
 	private final Context context = this;
-	Channel selectedChannel;
+	public static Channel selectedChannel;
 
 	/*
 	 * some private variables to implement endless scrolling
@@ -53,6 +54,7 @@ public class RSSFeedList extends ListActivity {
 		selectedChannel.setRssLink(intent.getExtras().getString("RssLink"));
 		selectedChannel.setFlag(intent.getExtras().getInt("flag"));
 		
+		
 		m_posts = new ArrayList<Post>();
 		this.m_adapter = new PostAdapter(this, R.layout.row, m_posts);
 		setListAdapter(this.m_adapter);
@@ -60,6 +62,7 @@ public class RSSFeedList extends ListActivity {
 		ListView lv = getListView();
 		lv.setTextFilterEnabled(true);
 
+		
 		/*
 		 * It opens the selected item in a detailed View
 		 */
@@ -225,6 +228,51 @@ public class RSSFeedList extends ListActivity {
 				TextView tt = (TextView) v.findViewById(R.id.toptext);
 				if (tt != null) {
 					tt.setText(o.getPostHeading());
+				}
+				/* setting the proper image for the channel */
+				boolean notSet = true;
+				ImageView img = (ImageView) v.findViewById(R.id.icon);
+				if(notSet){
+				if(selectedChannel.getName().toString().contains("Aaj Tv")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.aaj_tv));
+					notSet = false;
+				}
+				else if(selectedChannel.getName().toString().contains("The News")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.the_news));					
+					notSet = false;
+					}
+				else if(selectedChannel.getName().toString().contains("CNN")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.cnn));
+					notSet = false;
+				}
+				else if(selectedChannel.getName().toString().contains("Nation")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.the_nation));
+					notSet = false;
+				}
+				else if(selectedChannel.getName().toString().contains("BBC")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.bbc));
+					notSet = false;
+				}
+				else if(selectedChannel.getName().toString().contains("Fox News")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.fox_news_logo));
+					notSet = false;
+				}
+				else if(selectedChannel.getName().toString().contains("New York Times")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.new_york_times));
+					notSet = false;
+				}
+				else if(selectedChannel.getName().toString().contains("BigNewsNetwork")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.big_news_net));
+					notSet = false;
+				}
+				else if(selectedChannel.getName().toString().contains("CBC -")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.cbc_news));
+					notSet = false;
+				}
+				else if(selectedChannel.getName().toString().contains("OnePak")) {
+					img.setImageDrawable(getResources().getDrawable(R.drawable.one_pakistan));
+					notSet = false;
+				}
 				}
 			}
 			return v;

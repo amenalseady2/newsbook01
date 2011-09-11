@@ -83,7 +83,8 @@ public class Channels extends ListActivity {
 					intent.putExtra("flag", selectedItem.getFlag());
 
 					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
+					
+					
 					startActivity(intent);
 
 					/*
