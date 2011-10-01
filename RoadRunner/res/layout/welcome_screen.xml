@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:gravity="center_horizontal"
+  android:orientation="vertical" >
+    <LinearLayout android:layout_width="fill_parent" android:id="@+id/linearLayout1" android:layout_height="wrap_content" android:layout_margin="30dip"
+    android:gravity="center_horizontal"
+  android:orientation="vertical">
+  
+    <Button android:text="Start Running" android:id="@+id/btnStart" android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:layout_margin="10dip"/>
+    <Button android:text="About Us" android:id="@+id/btnAboutUs" android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:layout_margin="10dip"></Button>
+  </LinearLayout>
+ 
+</LinearLayout>
