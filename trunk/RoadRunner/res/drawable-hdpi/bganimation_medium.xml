@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/bg_Animation"
+        android:oneshot="false">
+                <item android:drawable="@drawable/city1" android:duration="40" />
+                <item android:drawable="@drawable/city2" android:duration="40" />
+                <item android:drawable="@drawable/city3" android:duration="40" />
+                <item android:drawable="@drawable/city4" android:duration="40" />                
+</animation-list>
