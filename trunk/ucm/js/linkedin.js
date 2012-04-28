@@ -1,0 +1,2 @@
+<script src="http://platform.linkedin.com/in.js" type="text/javascript"></script>
+<script type="IN/MemberProfile" data-id="    http://ca.linkedin.com/pub/sicotte-recrutement/24/270/b93" data-format="inline"></script>
