@@ -1,0 +1,1 @@
+<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:like-box href="http://www.facebook.com/pages/Le-4%C3%A8me/272620666574" width="250" show_faces="true" border_color="" stream="false" header="false"></fb:like-box>

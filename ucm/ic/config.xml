@@ -1,0 +1,8 @@
+<windowslivelogin>
+  <appid>00000000400A73D2</appid>
+  <secret>fjwIp5gbmr9EHiPronABShNmRrvJBoVp</secret>
+  <securityalgorithm>wsignin1.0</securityalgorithm>
+
+  <returnurl>http://www.youcureme.com/ContactsSamplePHP/</returnurl>
+  <policyurl>http://youcureme.com/aboutus.php</policyurl>
+</windowslivelogin>
