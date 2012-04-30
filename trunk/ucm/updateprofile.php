@@ -199,12 +199,12 @@ function thumbnail_profile($image_path, $size = '246x300') {
 		$myexperience=str_replace("\"","''",$myexperience);
 		$myexperience=stripslashes($myexperience);
 		
+		$usealias = 0;
+		
 		if(isset($_POST["usealias"]))
 		   $usealias=$_POST["usealias"];
 		if ($usealias)
 			$usealias = 1;
-		else
-			$usealias = 0;	
 			
 		$alias=str_replace("'","''",$_POST["alias"]);
 		$alias=str_replace("\"","''",$alias);

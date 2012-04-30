@@ -399,20 +399,34 @@ $DID=$row_user_d["diseaseid"];
 
                                                     <?php
 				
-				  
+				    $users_id_array = array();
 					$u_query="select * from tbluser where diseaseid='".$DID."'";
 					$res=mysql_query($u_query);	
-					if(mysql_num_rows($res))
-					{
-				    while($row_userid=mysql_fetch_array($res))
-					{
+					if(mysql_num_rows($res)>0){
+					    while($row_userid=mysql_fetch_array($res))
+						{
+							$users_id_array[] = $row_userid["userid"];
+						}
+					}
+					if(count($users_id_array)>0){
+						$user_condition = "(-1";
+						foreach($users_id_array as $muserid){
+								$user_condition .= ",".$muserid;
+						}
+						$user_condition .= ")";
+					}
+					
 					$query_post=" 										
 					select 					
 					blogpostid,posttext,postimage,postvideo,postembedvideolink,postedbyuserid,postedonuserid,datetimeposted,privacylevel,
 					(select CONCAT(fname,' ',lname) from tbluser where userid=p.postedbyuserid) as poster,
 					(select thumb_profile from tbluser where userid=p.postedbyuserid) as posterpic					
 					from tblblogposts p 
-					where postedonuserid = ".$row_userid["userid"]; 				
+					where 1=1";
+					
+					if(count($users_id_array)>0){
+						$query_post .= " and postedonuserid in ".$user_condition;
+					} 				
 					$query_post=$query_post." and privacylevel = 2 ";					
 					$query_post=$query_post." order by datetimeposted desc ";//limit 10";	
 					$sql=mysql_query($query_post);
@@ -580,8 +594,8 @@ $DID=$row_user_d["diseaseid"];
                                                     <?php		
 													 	}
 													    }
-												        }
-								                       }
+												        
+								                       
 					                               else
 													{
 													?>
