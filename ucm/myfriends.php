@@ -173,6 +173,7 @@ else
 	WHERE tblfriends.userid = ".$userid."	
 	AND tbluser.userid <> ".$userid."
 	AND friendshipstatus = 2
+	AND tbluser.isactive=1
 	AND tblfriends.friendwith = tbluser.userid
 	AND tbldisease.diseaseid=tbluser.diseaseid and tblusertype.usertypeid=tbluser.usertypeid  order by tblfriends.userid desc"; 
 	
@@ -213,6 +214,7 @@ else
 	FROM tblfriends, tbluser,tbldisease,tblusertype
 	WHERE tblfriends.userid = ".$userid."	
 	AND tbluser.userid <> ".$userid."
+	AND tbluser.isactive=1
 	AND friendshipstatus = 2
 	AND tblfriends.friendwith = tbluser.userid
 	AND tbldisease.diseaseid=tbluser.diseaseid and tblusertype.usertypeid=tbluser.usertypeid  order by tblfriends.userid desc";
@@ -262,6 +264,7 @@ else
 	FROM tblfriends, tbluser,tbldisease,tblusertype
 	WHERE tblfriends.userid = ".$userid."	
 	AND tbluser.userid <> ".$userid."
+	AND tbluser.isactive=1
 	AND friendshipstatus = 2
 	AND tblfriends.friendwith = tbluser.userid
 	AND tbldisease.diseaseid=tbluser.diseaseid and tblusertype.usertypeid=tbluser.usertypeid  order by tblfriends.userid desc";
@@ -279,6 +282,7 @@ else
 	FROM tblfriends, tbluser,tbldisease,tblusertype
 	WHERE tblfriends.userid = ".$userid."	
 	AND tbluser.userid <> ".$userid."
+	AND tbluser.isactive=1
 	AND friendshipstatus = 2
 	AND tblfriends.friendwith = tbluser.userid
 	AND tbldisease.diseaseid=tbluser.diseaseid and tblusertype.usertypeid=tbluser.usertypeid order by tblfriends.userid desc limit 10";
@@ -386,6 +390,7 @@ else
 	FROM tblfriends, tbluser,tbldisease,tblusertype
 	WHERE tblfriends.userid = ".$userid."	
 	AND tbluser.userid <> ".$userid."
+	AND tbluser.isactive=1
 	AND friendshipstatus = 2
 	AND tblfriends.friendwith = tbluser.userid
 	AND tbldisease.diseaseid=tbluser.diseaseid and tblusertype.usertypeid=tbluser.usertypeid ";

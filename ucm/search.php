@@ -909,7 +909,7 @@ from tblresourcetype,tblresources,tbluser where tblresources.resourcetypeid=tblr
 					
 					from tblblogposts p 
 					right outer join tbluser u on u.userid = p.postedonuserid
-					where posttext like '%".mysql_real_escape_string($_POST['searchstr'])."%'
+					where u.isactive=1 and posttext like '%".mysql_real_escape_string($_POST['searchstr'])."%'
 					order by datetimeposted desc ";//limit 10";	
 					
 					$sql=mysql_query($query_post);

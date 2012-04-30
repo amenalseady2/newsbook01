@@ -5,7 +5,27 @@
                         	<!--<img src="images/user-img.jpg" />-->
                             <img src="profilepics/<?php echo $profilepic; ?>" width="63" border="0" />
                         </div>
-						
+<?php 
+	$query_frnds_count="SELECT COUNT(*)	
+	FROM tblfriends, tbluser,tbldisease,tblusertype
+	WHERE tblfriends.userid = ".$userid."	
+	AND tbluser.userid <> ".$userid."
+	AND tbluser.isactive=1
+	AND friendshipstatus = 2
+	AND tblfriends.friendwith = tbluser.userid
+	AND tbldisease.diseaseid=tbluser.diseaseid and tblusertype.usertypeid=tbluser.usertypeid ";
+	$result_frnds_count=mysql_query($query_frnds_count);
+	$num_frnds_count=mysql_num_rows($result_frnds_count);
+	
+	if($num_frnds_count>0)
+	{
+		$row_frnds_count=mysql_fetch_array($result_frnds_count);	
+	
+		$frnds_count=$row_frnds_count[0];//." ".$userid;
+	}
+
+
+?>						
 						<?php
 							$_name='';
 							if(isset($_SESSION["userid"])){
