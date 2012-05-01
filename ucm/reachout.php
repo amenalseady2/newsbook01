@@ -1,4 +1,18 @@
-<?php include "header_inner.php";
+<?php include "header_inner.php";?>
+
+<link rel="stylesheet" href="colorbox/colorbox.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script src="colorbox/jquery.colorbox.js"></script>
+		<script>
+			$(document).ready(function(){
+				//Examples of how to assign the ColorBox event to elements
+				$(".group1").colorbox();
+			});
+		</script>
+		
+<?php
+
+
 
 function ismyfriend($userid,$friendwith)
 	{
@@ -591,9 +605,9 @@ else
 										$message=$message."<div class='req-general'>";
 										
 										if($row["profilepic"]!="" && $row["access_pic"]!="1")
-											$message=$message."<div class='searchlist'><a class='reqlisttitle' href='viewprofile.php?userid=".$row["userid"]."'><img src='profilepics/".$row["profilepic"]."' style='background-color:#FFFFFF' width='50'  border='0'></a></div>";
+											$message=$message."<div class='searchlist'><a class='group1' href='profilepics/".$row["profilepic"]."'><img src='profilepics/".$row["profilepic"]."' style='background-color:#FFFFFF' width='50'  border='0'></a></div>";
 										else
-											$message=$message."<div class='searchlist'><a class='reqlisttitle' href='viewprofile.php?userid=".$row["userid"]."'><img src='profilepics/empty_profile.jpg' style='background-color:#FFFFFF' width='50' border='0'></a></div>";
+											$message=$message."<div class='searchlist'><a class='group1' href='profilepics/tp-youcureme_35_201203231332476162.jpg'><img src='profilepics/empty_profile.jpg' style='background-color:#FFFFFF' width='50' border='0'></a></div>";
 											
 											
 									$message=$message."<div class='reqlist'>";
