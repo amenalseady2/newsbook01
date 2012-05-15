@@ -1,16 +1,20 @@
 <?php include "header_inner.php";?>
 
 <link rel="stylesheet" href="colorbox/colorbox.css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<script src="colorbox/jquery.colorbox.js"></script>
-		<script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="colorbox/jquery.colorbox.js"></script>
+<script>
 			$(document).ready(function(){
 				//Examples of how to assign the ColorBox event to elements
 				$(".group1").colorbox();
 			});
 		</script>
-		
+
 <?php
+
+
+
 
 
 function ismyfriend($userid,$friendwith)
@@ -103,6 +107,12 @@ if(!isset($_SESSION["userid"]) || $_SESSION["userid"] =="")
 }
 else
 {
+
+	
+	
+	
+	
+	
 	$userid=$_SESSION["userid"];
 	
 	/******************************************* LOAD USER INFO **********************************************************/
@@ -231,8 +241,22 @@ else
 		$row_ps_count=mysql_fetch_array($result_ps_count);				
 		$ps_match_count = $row_ps_count[0];   
 	}
-					
-	$query_reqs=" 
+
+	//////////////////////  PREPARING THE SECONDARY INTERESTS ARRAY ////////////////////
+	
+	$m_query = sprintf ( "select * from tblsecondary_interests where userid='%s'", $userid );
+	$m_rslt = mysql_query ( $m_query );
+	
+	$secondary_interests_ids = "(".$disease_id;
+	while ( $m_rw = mysql_fetch_array ( $m_rslt ) ) {
+		$secondary_interests_ids .= ",".$m_rw['diseaseid'];
+	}
+	$secondary_interests_ids  .= ')';
+	
+	/////////////////////
+	
+	
+	/*$query_reqs=" 
 	SELECT tbluser.userid,CONCAT( fname, ' ', lname ) AS sendername, 
 	thumb_profile as profilepic,access_pic,strusertype,strdisease,usealias,
 					alias,					
@@ -244,7 +268,20 @@ else
 	AND tbluser.diseaseid = $disease_id
 	AND tbldisease.diseaseid=tbluser.diseaseid
 	AND tblusertype.usertypeid=tbluser.usertypeid";	
-	//$query_reqs = $query_reqs." limit 10";
+	*/
+	$query_reqs=" 
+		SELECT tbluser.userid,CONCAT( fname, ' ', lname ) AS sendername, 
+	thumb_profile as profilepic,access_pic,strusertype,strdisease,usealias,
+	alias,					
+	access_msg,
+	access_pic
+	FROM tbluser
+	INNER JOIN tbldisease ON tbldisease.diseaseid=tbluser.diseaseid
+	INNER JOIN tblusertype ON tblusertype.usertypeid=tbluser.usertypeid
+	LEFT JOIN tblsecondary_interests on (tblsecondary_interests.userid = tbluser.userid)
+	WHERE tbluser.userid <> $userid
+	AND tbluser.isactive=1 
+	and (tbluser.diseaseid = $disease_id or  tblsecondary_interests.diseaseid IN $secondary_interests_ids)";
 	
 	if($_SERVER['REQUEST_METHOD']=='POST')
 		{
@@ -270,7 +307,7 @@ else
 						$where = $where. " and tbluser.usertypeid = ".$usertypeid; 
 				}
 				
-				
+				/*
 				$query_reqs=" 
 	SELECT tbluser.userid,CONCAT( fname, ' ', lname ) AS sendername, 
 	thumb_profile as profilepic,access_pic,strusertype,strdisease,usealias,
@@ -282,8 +319,21 @@ else
 	AND tbluser.isactive=1 
 	AND tbluser.diseaseid = $disease_id
 	AND tbldisease.diseaseid=tbluser.diseaseid
-	AND tblusertype.usertypeid=tbluser.usertypeid";
- 				
+	AND tblusertype.usertypeid=tbluser.usertypeid";*/
+	$query_reqs=" 
+		SELECT tbluser.userid,CONCAT( fname, ' ', lname ) AS sendername, 
+	thumb_profile as profilepic,access_pic,strusertype,strdisease,usealias,
+	alias,					
+	access_msg,
+	access_pic
+	FROM tbluser
+	INNER JOIN tbldisease ON tbldisease.diseaseid=tbluser.diseaseid
+	INNER JOIN tblusertype ON tblusertype.usertypeid=tbluser.usertypeid
+	LEFT JOIN tblsecondary_interests on (tblsecondary_interests.userid = tbluser.userid)
+	WHERE tbluser.userid <> $userid
+	AND tbluser.isactive=1 
+	and (tbluser.diseaseid = $disease_id or  tblsecondary_interests.diseaseid IN $secondary_interests_ids)";
+	 				
 				if($where!='')
 					$query_reqs=$query_reqs.$where;//$query=$query." where ".$where;
 					
@@ -315,7 +365,7 @@ else
 						$where = $where. " and tbluser.usertypeid = ".$usertypeid; 
 				}
 				
-				$query_reqs=" 
+	/*			$query_reqs=" 
 	SELECT tbluser.userid,CONCAT( fname, ' ', lname ) AS sendername, 
 	thumb_profile as profilepic,access_pic,strusertype,strdisease,usealias,
 					alias,					
@@ -326,7 +376,21 @@ else
 	AND tbluser.isactive=1 
 	AND tbluser.diseaseid = $disease_id
 	AND tbldisease.diseaseid=tbluser.diseaseid
-	AND tblusertype.usertypeid=tbluser.usertypeid";				
+	AND tblusertype.usertypeid=tbluser.usertypeid";
+	*/							$query_reqs=" 
+		SELECT tbluser.userid,CONCAT( fname, ' ', lname ) AS sendername, 
+	thumb_profile as profilepic,access_pic,strusertype,strdisease,usealias,
+	alias,					
+	access_msg,
+	access_pic
+	FROM tbluser
+	INNER JOIN tbldisease ON tbldisease.diseaseid=tbluser.diseaseid
+	INNER JOIN tblusertype ON tblusertype.usertypeid=tbluser.usertypeid
+	LEFT JOIN tblsecondary_interests on (tblsecondary_interests.userid = tbluser.userid)
+	WHERE tbluser.userid <> $userid
+	AND tbluser.isactive=1 
+	and (tbluser.diseaseid = $disease_id or  tblsecondary_interests.diseaseid IN $secondary_interests_ids)";
+	
 				if($where!='')
 					$query_reqs=$query_reqs.$where;//$query=$query." where ".$where;
 					
@@ -334,8 +398,8 @@ else
 			}
 			else
 			{
-				//Usual members display
-				$query_reqs=" 
+				//Usual members display = main query
+/*				$query_reqs=" 
 	SELECT tbluser.userid,CONCAT( fname, ' ', lname ) AS sendername, 
 	thumb_profile as profilepic,access_pic,strusertype,strdisease,usealias,
 					alias,					
@@ -347,6 +411,21 @@ else
 	AND tbluser.diseaseid = $disease_id
 	AND tbldisease.diseaseid=tbluser.diseaseid
 	AND tblusertype.usertypeid=tbluser.usertypeid limit 10";
+*/				
+$query_reqs=" 
+		SELECT tbluser.userid,CONCAT( fname, ' ', lname ) AS sendername, 
+	thumb_profile as profilepic,access_pic,strusertype,strdisease,usealias,
+	alias,					
+	access_msg,
+	access_pic
+	FROM tbluser
+	INNER JOIN tbldisease ON tbldisease.diseaseid=tbluser.diseaseid
+	INNER JOIN tblusertype ON tblusertype.usertypeid=tbluser.usertypeid
+	LEFT JOIN tblsecondary_interests on (tblsecondary_interests.userid = tbluser.userid)
+	WHERE tbluser.userid <> $userid
+	AND tbluser.isactive=1 
+	and (tbluser.diseaseid = $disease_id or  tblsecondary_interests.diseaseid IN $secondary_interests_ids)";
+	$query_reqs=$query_reqs." limit 10";
 				}
 		}
 
@@ -405,9 +484,8 @@ else
 
 </script>
 
-        <div class="warpper">
-        	<div class="left_side">
-    <!--        	<div class="left_contant">
+<div class="warpper">
+<div class="left_side"><!--        	<div class="left_contant">
                 	<div class="user_info">
                     	<div class="user_img">
     
@@ -525,84 +603,76 @@ else
 -->
 		<?php require("left_usermenu.php");?>	
                 </div>
-            </div>
+</div>
 
 <div class="body_main">
-    <div class="body_menu whitetitle">
-        <a href="myprofile.php" class="whitetitle size12">Home</a>&nbsp;&nbsp;<span class="size12">>></span>&nbsp;&nbsp;<span class=class="whitetitle size12">My Interest Members</span>
-    </div>
-    <div class="body">
-        <div class="main_link">
-            <div class="inbox_title">
-                <!--<div class="f_left">
+<div class="body_menu whitetitle"><a href="myprofile.php"
+	class="whitetitle size12">Home</a>&nbsp;&nbsp;<span class="size12">>></span>&nbsp;&nbsp;<span
+	class=class= "whitetitlesize12">My Interest Members</span></div>
+<div class="body">
+<div class="main_link">
+<div class="inbox_title"><!--<div class="f_left">
                     <img align="absmiddle" src="images/inbox_icon.jpg" />
                 </div>-->
-                <div class="f_left bluetitle size30 bold" style="padding-top:5px; width:auto;">
-                    Members With My Interest
-                </div>
-                <div class="right_img">
-                    <div class="inbox_img">
-                        <!--<img src="images/inbox-img.jpg" />
+<div class="f_left bluetitle size30 bold"
+	style="padding-top: 5px; width: auto;">Members With My Interest</div>
+<div class="right_img">
+<div class="inbox_img"><!--<img src="images/inbox-img.jpg" />
                         <br />
-                        <a href="#">Inbox</a>-->
-                    </div>
-                    <div class="outbox_img">
-                        <!--<img src="images/inbox-img.jpg" />
+                        <a href="#">Inbox</a>--></div>
+<div class="outbox_img"><!--<img src="images/inbox-img.jpg" />
                         <br />
-                        <a href="#">Outbox</a>-->
-                    </div>
-                    <div class="notification_img">
-                        <!--<img src="images/inbox-img.jpg" />
+                        <a href="#">Outbox</a>--></div>
+<div class="notification_img"><!--<img src="images/inbox-img.jpg" />
                         <br />
-                        <a href="#">Notification</a>-->
-                        
-                    </div>
-                </div>
-            </div>
-	
-         <div class="menulinks">
-                <div class="top-i"></div>
-                <div class="centertxt">
-                    <table cellpadding="0" cellspacing="0" style="width:660px; border:0px;">
-                     
-                        <tr>
-                            <td style="width:660px;" colspan="3" align="left" valign="top">
-                                <table cellpadding="0" cellspacing="0" style="width:660px; border:0px;">
-                                    <form action="myinterestmembers.php" method="post" enctype="multipart/form-data" >
-                                        <input type="hidden" id="uname_h" name="uname_h" value="<?php echo $uname; ?>" />
-                                        <input type="hidden" id="usertypeid_h" name="usertypeid_h" value="<?php echo $usertypeid; ?>" />
-                                        <input type="hidden" id="diseaseid_h" name="diseaseid_h" value="<?php echo $diseaseid; ?>" />
+                        <a href="#">Notification</a>--></div>
+</div>
+</div>
 
-                                        <tr>
-                                            <td style="width:58px; height:10px;" align="left" valign="top"></td>
-                                            <td style="width:110px;" align="left" valign="top"></td>
-                                            <td style="width:35px;" align="left" valign="top"></td>
-                                            <td style="width:50px;" align="left" valign="top"></td>
-                                            <td style="width:110px;" align="left" valign="top"></td>
-                                            <td style="width:35px;" align="left" valign="top"></td>
-                                            <td style="width:50px;" align="left" valign="top"></td>
-                                            <td style="width:132px;" align="left" valign="top"></td>
-                                            <td rowspan="2" align="left" valign="bottom" style="width:80px;">
-                                                <!--<a href="#">
+<div class="menulinks">
+<div class="top-i"></div>
+<div class="centertxt">
+<table cellpadding="0" cellspacing="0"
+	style="width: 660px; border: 0px;">
+
+	<tr>
+		<td style="width: 660px;" colspan="3" align="left" valign="top">
+		<table cellpadding="0" cellspacing="0"
+			style="width: 660px; border: 0px;">
+			<form action="myinterestmembers.php" method="post"
+				enctype="multipart/form-data"><input type="hidden" id="uname_h"
+				name="uname_h" value="<?php echo $uname; ?>" /> <input type="hidden"
+				id="usertypeid_h" name="usertypeid_h"
+				value="<?php echo $usertypeid; ?>" /> <input type="hidden"
+				id="diseaseid_h" name="diseaseid_h"
+				value="<?php echo $diseaseid; ?>" />
+
+			<tr>
+				<td style="width: 58px; height: 10px;" align="left" valign="top"></td>
+				<td style="width: 110px;" align="left" valign="top"></td>
+				<td style="width: 35px;" align="left" valign="top"></td>
+				<td style="width: 50px;" align="left" valign="top"></td>
+				<td style="width: 110px;" align="left" valign="top"></td>
+				<td style="width: 35px;" align="left" valign="top"></td>
+				<td style="width: 50px;" align="left" valign="top"></td>
+				<td style="width: 132px;" align="left" valign="top"></td>
+				<td rowspan="2" align="left" valign="bottom" style="width: 80px;"><!--<a href="#">
                                                 <img style="border:0px;" src="images/search-btn.jpg" />
-                                            </a>-->
-                                                <input id="submit-membersearch" type="submit" value="Search" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width:58px;" align="left" class="size12">
-                                                Name
-                                            </td>
-                                            <td style="width:110px;" align="left" valign="top">
-                                                <input value="<?php echo $uname; ?>" style="width:115px; border:1px #bcbcbc solid; height:18px; padding-left:3px;" name="uname" id="uname" type="text" />
-                                            </td>
-                                            <td style="width:35px;" align="left">&nbsp;
-                                                
-                                            </td>
-                                            <td style="width:50px;" align="left" class="size12">Type </td>
-                                            <td style="width:110px;" align="left" valign="top">
-                                                <select name="usertypeid" id="usertypeid" style="width:115px; border:1px #bcbcbc solid; height:22px; padding-left:3px;">
-                                                    <option value="0" >Any</option>
+                                            </a>--> <input
+					id="submit-membersearch" type="submit" value="Search" /></td>
+			</tr>
+			<tr>
+				<td style="width: 58px;" align="left" class="size12">Name</td>
+				<td style="width: 110px;" align="left" valign="top"><input
+					value="<?php echo $uname; ?>"
+					style="width: 115px; border: 1px #bcbcbc solid; height: 18px; padding-left: 3px;"
+					name="uname" id="uname" type="text" /></td>
+				<td style="width: 35px;" align="left">&nbsp;</td>
+				<td style="width: 50px;" align="left" class="size12">Type</td>
+				<td style="width: 110px;" align="left" valign="top"><select
+					name="usertypeid" id="usertypeid"
+					style="width: 115px; border: 1px #bcbcbc solid; height: 22px; padding-left: 3px;">
+					<option value="0">Any</option>
                                                     <?php    
 											$q="select usertypeid,strusertype from tblusertype";	
 											$r=mysql_query($q);
@@ -622,35 +692,35 @@ else
 												}
 											} 
 										?>
-                                                </select>
-                                            </td>
-                                            <td style="width:35px;" align="left">
-                                                <!--<img style="border:0px;" src="images/calender.jpg" />--> &nbsp;
-                                            </td>
-                                            
-                                        </tr>
-                                        <tr>
-                                            <td style="width:660px; height:10px;" colspan="9" align="left"></td>
-                                        </tr>
-                                    </form>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="bottom-i"></div>
-            </div>
-			
-            
-            <div class="email_table">              
-                <table cellpadding="0" cellspacing="0" style="width:686px; border:0px;">
-				<input type="hidden" id="diseaseid_h" name="diseaseid_h" value="<?php echo $disease_id; ?>" />
-                    <tr>
-                        <td style="width:686px;"align="left" valign="top">
+                                                </select></td>
+				<td style="width: 35px;" align="left"><!--<img style="border:0px;" src="images/calender.jpg" />-->
+				&nbsp;</td>
+
+			</tr>
+			<tr>
+				<td style="width: 660px; height: 10px;" colspan="9" align="left"></td>
+			</tr>
+			</form>
+		</table>
+		</td>
+	</tr>
+</table>
+</div>
+<div class="bottom-i"></div>
+</div>
 
 
-                            <ol class="timeline" id="updates">
-							<li>
+<div class="email_table">
+<table cellpadding="0" cellspacing="0"
+	style="width: 686px; border: 0px;">
+	<input type="hidden" id="diseaseid_h" name="diseaseid_h"
+		value="<?php echo $disease_id; ?>" />
+	<tr>
+		<td style="width: 686px;" align="left" valign="top">
+
+
+		<ol class="timeline" id="updates">
+			<li>
                             <?php
 							$search_id = 0;			
 										
@@ -757,24 +827,22 @@ else
 							if($search_id) {
 							?>							
                             </li>
-                            </ol>  
-                                <div id="moresearchmyint<?php echo $search_id; ?>" class="morebox">
-                                    <a href="#" class="moresearchmyint" id="<?php echo $search_id; ?>"> <img src="images/more.png" alt="more" width="40" height="40" border="0"/>
-                                    </a>
-                                </div>  
+		</ol>
+		<div id="moresearchmyint<?php echo $search_id; ?>" class="morebox"><a
+			href="#" class="moresearchmyint" id="<?php echo $search_id; ?>"> <img
+			src="images/more.png" alt="more" width="40" height="40" border="0" />
+		</a></div>  
 							<?php } ?>
                         </div>
-            <!-- End of msg-list -->
-        </div>
-        <!-- end of inbox --> 
+		<!-- End of msg-list -->
+		</div>
+		<!-- end of inbox --></td>
+	</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
 
-        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>    
-        </div>	  
-        
 <?php include "footer.php"; ?>
