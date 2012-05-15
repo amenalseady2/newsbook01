@@ -6,7 +6,9 @@
                             <img src="profilepics/<?php echo $profilepic; ?>" width="63" border="0" />
                         </div>
 <?php 
-	$query_frnds_count="SELECT COUNT(*)	
+
+
+$query_frnds_count="SELECT COUNT(*)	
 	FROM tblfriends, tbluser,tbldisease,tblusertype
 	WHERE tblfriends.userid = ".$userid."	
 	AND tbluser.userid <> ".$userid."
@@ -25,6 +27,19 @@
 	}
 
 	// getting the count for members with my interest
+	//////////////////////  PREPARING THE SECONDARY INTERESTS ARRAY ////////////////////
+	
+	$m_query = sprintf ( "select * from tblsecondary_interests where userid='%s'", $userid );
+	$m_rslt = mysql_query ( $m_query );
+	
+	$secondary_interests_ids = "(".$disease_id;
+	while ( $m_rw = mysql_fetch_array ( $m_rslt ) ) {
+		$secondary_interests_ids .= ",".$m_rw['diseaseid'];
+	}
+	$secondary_interests_ids  .= ')';
+	
+	/////////////////////
+	
 	$query_reqs=" 
 		SELECT tbluser.userid,CONCAT( fname, ' ', lname ) AS sendername, 
 	thumb_profile as profilepic,access_pic,strusertype,strdisease,usealias,
