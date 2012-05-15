@@ -334,10 +334,32 @@ else
                 
                 </script>
 
+  								<script type="text/javascript">
+
+                                    $(document).ready(function() {
+                                        
+                                    	$('#add_another_interest').click(function() 	{
+
+                                    		$.ajax({
+			                              			type: "POST",
+			                              			url: "add_secondary_interest.php",
+			                              			data: "interest=ok", 
+			                              			cache: false,
+			                              			success: function(html){
+			                              				$('form #interest_table tr:last').after(html);
+			                              			}
+		                              		});
+			    
+
+	                                  	});
+                                      	
+    	                             });
+                                    </script>
+
+
 
                 <?php 
         
-			    
 			    
 			    $genderid=$row["genderid"];
 			    $usertypeid=$row["usertypeid"];
@@ -397,7 +419,7 @@ else
                         </div>
                         <div class="txt_links">
                         	<ul>
-                            	<li><a href="editprofile.php?userid=<?php echo $_SESSION["userid"]; ?>">Account Settings</a></li>
+                            	<li><a href="editprofile.php?userid=<?php //echo $_SESSION["userid"]; ?>">Account Settings</a></li>
                                 <li>
                                     <a href="privacy.php">Privacy Settings</a>
                                 </li>
@@ -495,7 +517,7 @@ else
             </div>
             <div class="body_main">
                 <div class="body_menu whitetitle">
-                    <a href="myprofile.php" class="whitetitle size12">Home</a>&nbsp;&nbsp;<span class="size12">>></span>&nbsp;&nbsp;<span class="whitetitle size12">Account Settings</span>
+                    <a href="myprofile.php" class="whitetitle size12">Home</a>&nbsp;&nbsp;<span class="size12"></span>&nbsp;&nbsp;<span class="whitetitle size12">Account Settings</span>
                 </div>
 
                 <div class="body">
@@ -517,11 +539,18 @@ else
                         </div>
 
                         <div class="email_table">
-                            <table cellpadding="0" cellspacing="0" style="width:686px; border:0px;">
-                                <form action="updateprofile.php" method="post" enctype="multipart/form-data" id="customForm" >
+                        <form action="updateprofile.php" method="post" enctype="multipart/form-data" id="customForm" >
+                            <table id="interest_table" cellpadding="0" cellspacing="0" style="width:686px; border:0px;">
+                                
                                     <input type="hidden" id="isactive" name="isactive" value="<?php echo $isactive; ?>" />
                                     <input type="hidden" id="userid" name="userid" value="<?php echo $userid; ?>" />
-
+									<tr>
+                                        <td style="width:36px;" align="left" valign="top">&nbsp;</td>
+                                        <td style="width:125px;" align="left" valign="top">&nbsp;</td>
+                                        <td style="width:319px;" align="left" valign="top">&nbsp;</td>
+                                        <td style="width:103px;" align="left" valign="top">&nbsp;</td>
+                                        <td style="width:103px;" align="left" valign="top">&nbsp;</td>
+                                    </tr>
                                     <tr>
                                         <td style="width:36px; height:12px;" colspan="5" align="left" valign="top"></td>
                                     </tr>
@@ -619,11 +648,11 @@ else
                                                     <?php if($genderid=='2') { echo " selected='selected' "; } ?> >Female
                                                 </option>
                                             </select>
-
                                         </td>
                                     </tr>
                                     <tr>
                                         <td style="width:36px; height:3px;" colspan="5" align="left" valign="top"></td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td style="width:125px;" align="left" class="bold size12">
@@ -653,6 +682,7 @@ else
                                             </select>
                                         </td>
                                     </tr>
+                                    
                                     <tr>
                                         <td style="width:36px; height:3px;" colspan="5" align="left" valign="top"></td>
                                     </tr>
@@ -661,7 +691,8 @@ else
                                             <?php echo $item['signup_item6']; ?>
                                         </td>
                                         <td colspan="4" style="width:561px;" align="left" class="size12">
-                                            <select name="diseaseid" id="diseaseid" style="width:160px; border:1px #bcbcbc solid; height:16px; padding-left:3px;">
+                                            <select name="disease_ids[]" style="width:160px; border:1px #bcbcbc solid; height:16px; padding-left:3px;">
+                                            
                                                 <?php    
 											$q="select diseaseid,strdisease from tbldisease where diseaseid<>15 order by strdisease";	
 											$r=mysql_query($q);
@@ -684,9 +715,62 @@ else
                                                 <option value="15"
                                                     <?php if ($diseaseid=="15") echo "selected='selected'"; ?>>Other
                                                 </option>
-                                            </select>
+                                            </select>&nbsp; <a href="#" id="add_another_interest">Add another interest</a>   
                                         </td>
                                     </tr>
+                                    <?php 
+                                    
+                                    $m_query=sprintf("select * from tblsecondary_interests where userid='%s'",$userid);
+                                    $m_rslt = mysql_query($m_query);
+                                    while($m_rw=mysql_fetch_array($m_rslt))
+									{?>
+									<tr>
+                                        <td style="width:36px; height:3px;" colspan="5" align="left" valign="top"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:125px;" align="left" class="bold size12">
+                                            
+                                        </td>
+                                        <td colspan="4" style="width:561px;" align="left" class="size12">
+                                            <select name="disease_ids[]" style="width:160px; border:1px #bcbcbc solid; height:16px; padding-left:3px;">
+                                            
+                                                <?php    
+											$q="select diseaseid,strdisease from tbldisease where diseaseid<>15 order by strdisease";	
+											$r=mysql_query($q);
+											if($r)
+											{	
+												$n=mysql_num_rows($r);
+												if($n>0)
+												{			
+													$count=0;	
+													while($rw=mysql_fetch_array($r))
+													{
+														echo "<option value='".$rw["diseaseid"]."'";
+														if ($rw["diseaseid"]==$m_rw["diseaseid"]) echo "selected='selected'";
+														echo " >".$rw["strdisease"]."</option>";
+														$count++;			
+													}
+												}
+											} 
+										?>
+                                                <option value="15"
+                                                    <?php if ($m_rw["diseaseid"]=="15") echo "selected='selected'"; ?>>Other
+                                                </option>
+                                               
+                                        </td>
+                                    </tr>	
+										
+										
+										
+										
+										
+										
+									<!-- end of while -->
+									<?php } ?>
+                                    
+                                    </table>
+                                  
+                                    <table cellpadding="0" cellspacing="0" style="width:686px; border:0px;">
                                     <tr>
                                         <td style="width:36px; height:3px;" colspan="5" align="left" valign="top"></td>
                                     </tr>
@@ -734,7 +818,6 @@ else
                                         <td style="width:36px; height:3px;" colspan="5" align="left" valign="top"></td>
                                     </tr>
                                     <tr>
-
                                         <td style="width:130px;" align="left" class="bold size12">
                                             <?php echo $item['signup_item3']; ?>
                                         </td>
@@ -877,5 +960,5 @@ else
                 
           </div>
         </div>	  
-        
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <?php include "footer.php"; ?>

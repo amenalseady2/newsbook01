@@ -175,7 +175,7 @@ function thumbnail_profile($image_path, $size = '246x300') {
 		
 		$genderid=$_POST["genderid"];
 		$usertypeid=$_POST["usertypeid"];
-		$diseaseid=$_POST["diseaseid"];
+		$diseaseid=$_POST["disease_ids"][0];
 		
 		$city=str_replace("'","''",$_POST["city"]);
 		$city=str_replace("\"","''",$city);
@@ -278,9 +278,27 @@ function thumbnail_profile($image_path, $size = '246x300') {
 						rcvemail4notifications = ".$rcvemail4notifications."
 					where 
 						userid=".$userid;
-			
-			if(mysql_query($query))
-			{
+		
+				if (mysql_query ( $query )) {
+					foreach ( $_POST ["disease_ids"] as $disease_id ) {
+						if (!exists_already ( $disease_id, $userid )) {
+
+							$query = sprintf ( "
+									insert into tblsecondary_interests 
+										(
+										userid, 
+										diseaseid
+										)
+										values
+										( 
+										'%s', 
+										'%s'
+										)", $userid, $disease_id );
+							
+					mysql_query ( $query );
+						}
+				}
+				
 				$_SESSION["fname"] = $fname." ".$lname;
 				$_SESSION["email"] = $email;
 				$_SESSION["usertypeid"]=$usertypeid;
@@ -298,4 +316,14 @@ function thumbnail_profile($image_path, $size = '246x300') {
 		}
 	}
 
+function exists_already($diseaseid, $userid) {
+	
+	$m_query = sprintf ( "select * from tblsecondary_interests where userid='%s' and diseaseid='%s'", $userid, $diseaseid );
+	$m_rslt = mysql_query ( $m_query );
+	if(mysql_num_rows($m_rslt)>0){
+		return true;
+	} else 
+		return false;
+	
+}
 ?>
