@@ -24,6 +24,26 @@
 		$frnds_count=$row_frnds_count[0];//." ".$userid;
 	}
 
+	// getting the count for members with my interest
+	$query_reqs=" 
+		SELECT tbluser.userid,CONCAT( fname, ' ', lname ) AS sendername, 
+	thumb_profile as profilepic,access_pic,strusertype,strdisease,usealias,
+	alias,					
+	access_msg,
+	access_pic
+	FROM tbluser
+	INNER JOIN tbldisease ON tbldisease.diseaseid=tbluser.diseaseid
+	INNER JOIN tblusertype ON tblusertype.usertypeid=tbluser.usertypeid
+	LEFT JOIN tblsecondary_interests on (tblsecondary_interests.userid = tbluser.userid)
+	WHERE tbluser.userid <> $userid
+	AND tbluser.isactive=1 
+	and (tbluser.diseaseid = $disease_id or  tblsecondary_interests.diseaseid IN $secondary_interests_ids)";
+	$query_reqs=$query_reqs." limit 10";
+	
+	$rslt_count = mysql_query($query_reqs);
+	$members_with_my_interest_count = 	mysql_num_rows($rslt_count);
+	
+	
 
 ?>						
 						<?php
@@ -121,7 +141,7 @@
                             <ul>
                             	<li><a href="members.php">Search All Members</a></li>
 								<li>
-                                    <a href="myinterestmembers.php">Members With My Interest(<?php echo $disease_match_count-1;?>)</a>
+                                    <a href="myinterestmembers.php">Members With My Interest(<?php echo $members_with_my_interest_count;?>)</a>
                                 </li> 
 								<li><a href="reachout.php">Reach Out(<?php echo $ps_match_count;?>)</a></li>
                             </ul>
