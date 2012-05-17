@@ -20,16 +20,34 @@ else
 	$uname=str_replace("\"","''",$uname);
 	$uname=stripslashes($uname);
  
-	$query_reqs=" 
-	SELECT tbluser.userid,CONCAT( fname, ' ', lname ) AS sendername, 
-	thumb_profile as profilepic,access_pic,strusertype,strdisease
-	FROM tbluser,tbldisease,tblusertype
-	WHERE tbluser.userid <> ".$userid."
-	AND tbluser.isactive=1 
-	AND tbluser.diseaseid = $disease_id
-	AND tbldisease.diseaseid=tbluser.diseaseid
-	AND tblusertype.usertypeid=tbluser.usertypeid";	
+		//////////////////////  PREPARING THE SECONDARY INTERESTS ARRAY ////////////////////
 	
+	$m_query = sprintf ( "select * from tblsecondary_interests where userid='%s'", $userid );
+	$m_rslt = mysql_query ( $m_query );
+	
+	$secondary_interests_ids = "(".$disease_id;
+	while ( $m_rw = mysql_fetch_array ( $m_rslt ) ) {
+		$secondary_interests_ids .= ",".$m_rw['diseaseid'];
+	}
+	$secondary_interests_ids  .= ')';
+	
+	/////////////////////
+	
+	$query_reqs=" 
+		SELECT tbluser.userid,CONCAT( fname, ' ', lname ) AS sendername, 
+	thumb_profile as profilepic,access_pic,strusertype,strdisease,usealias,
+	alias,					
+	access_msg,
+	access_pic
+	FROM tbluser
+	INNER JOIN tbldisease ON tbldisease.diseaseid=tbluser.diseaseid
+	INNER JOIN tblusertype ON tblusertype.usertypeid=tbluser.usertypeid
+	LEFT JOIN tblsecondary_interests on (tblsecondary_interests.userid = tbluser.userid)
+	WHERE tbluser.userid <> $userid
+	AND tbluser.isactive=1 
+	and (tbluser.diseaseid = $disease_id or  tblsecondary_interests.diseaseid IN $secondary_interests_ids)";
+	
+
 	$where = '';				
 	if($uname!='' && trim($uname)!='') 				
 	   $where = $where. " AND (fname like '%".$uname."%' or lname like '%".$uname."%' or concat( fname, ' ', lname ) like '%".$uname."%')";
