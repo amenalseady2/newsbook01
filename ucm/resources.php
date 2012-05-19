@@ -1,4 +1,5 @@
-<?php include "header_inner.php";
+<?php
+include "header_inner.php";
 
 $fname='';
 $lname='';
@@ -29,11 +30,11 @@ $frnds_count=0;
 $_type='';
 $_diseaseid = '';
 
-if(isset($_POST['usertypeid'])){
-	$_type = $_POST['usertypeid'];
+if(isset($_GET['usertypeid'])){
+	$_type = $_GET['usertypeid'];
 }
-if(isset($_POST['diseaseid'])){
-	$_diseaseid = $_POST['diseaseid'];
+if(isset($_GET['diseaseid'])){
+	$_diseaseid = $_GET['diseaseid'];
 }
 
 
@@ -260,13 +261,18 @@ from tblresourcetype,tblresources,tbluser where tblresources.resourcetypeid=tblr
 				$query6 = "
 				select resourceid,postedby,dateposted,link,description,subject,strresourcetype,fname,lname
 from tblresourcetype,tblresources,tbluser where tblresources.resourcetypeid=tblresourcetype.resourcetypeid and tblresources.postedby=tbluser.userid  and tblresources.resourcetypeid = 6 ";
-		if($_SERVER['REQUEST_METHOD']=='POST')
+		if($_SERVER['REQUEST_METHOD']=='GET')
 		{
-				$uname = str_replace("'","''",$_POST["uname"]);
+			if(isset($_GET["uname"])){
+				$uname = str_replace("'","''",$_GET["uname"]);
 				$uname=str_replace("\"","''",$uname);
 				$uname=stripslashes($uname);
-				//$resourcetypeid = $_POST["resourcetypeid"];
-				$diseaseid = $_POST["diseaseid"];
+			} else 
+				$uname='';
+				
+				//$resourcetypeid = $_GET["resourcetypeid"];
+				if(isset($_GET["diseaseid"]))
+					$diseaseid = $_GET["diseaseid"];
 				
 				$where = '';
 				
@@ -509,7 +515,7 @@ from tblresourcetype,tblresources,tbluser where tblresources.resourcetypeid=tblr
                         <tr>
                             <td style="width:660px;" colspan="3" align="left" valign="top">
                                 <table cellpadding="0" cellspacing="0" style="width:660px; border:0px;">
-                                    <form action="resources.php" method="post" enctype="multipart/form-data" >
+                                    <form action="resources.php" method="get" enctype="multipart/form-data" >
                                      <input type="hidden" id="uname_h" name="uname_h" value="<?php echo $uname; ?>" />
                                         <input type="hidden" id="resourcetypeid_h" name="resourcetypeid_h" value="<?php echo $resourcetypeid; ?>" />
                                         <input type="hidden" id="diseaseid_h" name="diseaseid_h" value="<?php echo $diseaseid; ?>" /> 
@@ -527,7 +533,7 @@ from tblresourcetype,tblresources,tbluser where tblresources.resourcetypeid=tblr
                                                 <!--<a href="#">
                                                 <img style="border:0px;" src="images/search-btn.jpg" />
                                             </a>-->
-                                                <input id="submit-subscirbe" type="submit" value="Search" />
+                                                <input id="submit-subscirbe" name="thesearchbutton" type="submit" value="Search" />
                                             </td>
                                         </tr>
                                         <tr>

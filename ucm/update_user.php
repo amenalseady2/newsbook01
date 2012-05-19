@@ -9,11 +9,20 @@ $result_set = mysql_fetch_object($result);
 $fname=$result_set->fname;
 $lname=$result_set->lname;
 $email=$result_set->email;
+$user_status = $_REQUEST["status"];
 
-if(mysql_num_rows($result))
+if($user_status == 'Active'){
+	$update = "UPDATE tbluser set isactive='1' WHERE userid=".$_REQUEST['id']."";
+		mysql_query($update);
+} else {
+	$update1 = "UPDATE tbluser set isactive='0' WHERE userid=".$_REQUEST['id']."";
+		mysql_query($update1);
+
+
+/*if(mysql_num_rows($result))
 {
 $row=mysql_fetch_array($result);
-	if($row['isactive']=="0")
+	if($row['isactive']==0)
 	{
 		$update = "UPDATE tbluser set isactive='1' WHERE userid=".$_REQUEST['id']."";
 		mysql_query($update);
@@ -23,7 +32,7 @@ $row=mysql_fetch_array($result);
 		$update1 = "UPDATE tbluser set isactive='0' WHERE userid=".$_REQUEST['id']."";
 		mysql_query($update1);
 	}
-		
+*/		
 		$EmailTo = $email;	 
 					$EmailFrom = "info@youcureme.com";
 					$Emailfrom_name = "YouCureMe.com"; 
@@ -33,6 +42,7 @@ $row=mysql_fetch_array($result);
 									
 					send_smtpmail($EmailTo, $EmailFrom, $Emailfrom_name, $EmailSubject, $EmailMsg);
 					
-echo "<script>window.location=' viewuser.php?msg=User details have been updated Successfully';</script>";
+//echo "<script>window.location=' viewuser.php?msg=User details have been updated Successfully';</script>";
 }
+echo "<script>window.location=' viewuser.php?msg=User details have been updated Successfully';</script>";
 ?>
