@@ -308,7 +308,6 @@ else
 		//$("#datepicker").datepicker({ maxDate: 1 });
 		var now = new Date();
 		now.setDate(now.getDate() - 365); // add -7 days to your date variable 
-		//alert(now); 
 
 		$("#datepicker").datepicker('option', 'maxDate', now);
 
@@ -319,6 +318,8 @@ else
                 <script>
                 $(document).ready(function () {
                 	$('#datepicker').datepicker('setDate', '<?php echo $custom_dob;?>');
+
+                	$('#dt_dob').val('<?php echo $custom_dob;?>');
 
                 	$('#fname').keyup(function() {
                     	 var alias = $('#usealias').is(':checked');
@@ -360,6 +361,7 @@ else
 
                 <?php 
         
+			    
 			    
 			    $genderid=$row["genderid"];
 			    $usertypeid=$row["usertypeid"];
@@ -419,7 +421,7 @@ else
                         </div>
                         <div class="txt_links">
                         	<ul>
-                            	<li><a href="editprofile.php?userid=<?php //echo $_SESSION["userid"]; ?>">Account Settings</a></li>
+                            	<li><a href="editprofile.php?userid=<?php echo $_SESSION["userid"]; ?>">Account Settings</a></li>
                                 <li>
                                     <a href="privacy.php">Privacy Settings</a>
                                 </li>
@@ -625,9 +627,132 @@ else
                                         </td>
                                         <td colspan="4" style="width:556px;" align="left" class="size12">
 								
+								
+								
+								
+<script>
+
+$(document).ready(function(){
+	
+	var db_date = new Date($('#dt_dob').val());
+
+	var db_month = db_date.getMonth() + 1
+	var db_day = db_date.getDate()
+	var db_year = db_date.getFullYear()
+	$('#d').val(db_day); 
+	$('#m').val(db_month);
+	$('#y').val(db_year);
+	
+	
+	
+	var m_dob;
+	function get_days(numb_of_days){
+
+		var newOptions=new Array();
+
+		for (i=0;i<=numb_of_days;i++)
+		{
+		  newOptions[i] = i;
+		}	
+		
+		return newOptions;
+	}
+	$('#d').change(function() {
+
+		var year = $('#y').val();
+		var day = $('#d').val();
+		var month = $('#m').val();
+		
+		m_dob = year+'-'+month+'-'+day;
+		$("#dt_dob").empty(); 
+		$("#dt_dob").val(m_dob);
+	});
+	
+	$('#y,#m').change(function() {
+		
+		var year = $('#y').val();
+		var day = $('#d').val();
+		var month = $('#m').val();	
+		
+		var newOptions;
+		var month_day_count = new Array();
+		month_day_count[0]  = 31;
+		month_day_count[1]  = 28;
+		month_day_count[2]  = 31;
+		month_day_count[3]  = 30;
+		month_day_count[4]  = 31;
+		month_day_count[5]  = 30;
+		month_day_count[6]  = 31;
+		month_day_count[7]  = 31;
+		month_day_count[8]  = 29;
+		month_day_count[9]  = 31;
+		month_day_count[10] = 30;
+		month_day_count[11] = 31;
+		
+		
+		$.each(month_day_count, function(key, value) {
+			if(key==month-1){
+				
+			if(month==2){
+				var leap_days = (year%4 == 0) ? 29 : 28;
+				newOptions = get_days(leap_days-1);
+			}else{
+				newOptions = get_days(value);
+			 }
+			}
+		});
+		
+		var $el = $("#d");
+		$el.empty(); // remove old options
+		$.each(newOptions, function(key, value) {
+		  $el.append($("<option></option>")
+			 .attr("value", value+1).text(key+1));
+		});
+
+		
+		m_dob = year+'-'+month+'-'+day;
+		$("#dt_dob").empty(); 
+		$("#dt_dob").val(m_dob);
+		
+	});
+
+});
+</script>								
+								<?php 
+								
+								$months = array (1 => 'January', 'February', 'March', 'April', 'May', 'June','July', 'August', 'September', 'October', 'November', 'December');
+								$weekday = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
+								$days = range (1, 31);
+								
+								$years = range (1920, date('Y')-1);
+								
+								echo "<select id='m' name='month'>";
+								foreach ($months as $key=>$value) {
+									echo '<option value="'.$key.'">'.$value.'</option>\n';
+								} echo '</select>-';
+								 
+								echo "<select id='d' name='day'>";
+								foreach ($days as $value) {
+									echo '<option value="'.$value.'">'.$value.'</option>\n';
+								} echo '</select>-';
+								 
+								echo "<select id='y' name='year'>";
+								foreach ($years as $value) {
+									echo '<option value="'.$value.'">'.$value.'</option>\n';
+								} 
+								?>
+								
+								
+								
+								
+								
+								
+								
+								
 
                                 
-                                <input name="dob" type="text" id="datepicker" value='' />
+                                
+                                <input name="dob" type="hidden" id="dt_dob" value='' />
 
                                         </td>
                                     </tr>
@@ -648,6 +773,7 @@ else
                                                     <?php if($genderid=='2') { echo " selected='selected' "; } ?> >Female
                                                 </option>
                                             </select>
+
                                         </td>
                                     </tr>
                                     <tr>
@@ -682,7 +808,6 @@ else
                                             </select>
                                         </td>
                                     </tr>
-                                    
                                     <tr>
                                         <td style="width:36px; height:3px;" colspan="5" align="left" valign="top"></td>
                                     </tr>
@@ -818,6 +943,7 @@ else
                                         <td style="width:36px; height:3px;" colspan="5" align="left" valign="top"></td>
                                     </tr>
                                     <tr>
+
                                         <td style="width:130px;" align="left" class="bold size12">
                                             <?php echo $item['signup_item3']; ?>
                                         </td>
