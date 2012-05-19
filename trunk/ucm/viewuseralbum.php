@@ -270,124 +270,88 @@ else
 		<script type="text/javascript">
 			document.write('<style>.noscript { display: none; }</style>');
 		</script>
-        
-   <div class="warpper">
+     <div class="warpper">
         	<div class="left_side">
-            <div class="left_contant">
+            	<div class="left_contant">
                 	<div class="user_info">
                     	<div class="user_img">
-                        
+                        	<!--<img src="images/user-img.jpg" />-->
+                            <?php if($access_pic=="2" || ($access_pic=="3" && $isfriend==true))
+					{
+					?>
                             <img src="profilepics/<?php echo $profilepic; ?>" width="63" height="59" border="0" />
-                        </div>
+<?php
+					}
+					else
+					{
+					?>
+                            <img src="profilepics/empty_profile.jpg" style="background-color:#FFFFFF" width="63" height="59" border="0">
+                                <?php
+					}
+					?>
+                            </div>
                         <div class="user_data">
-                        	<div class="user_name bluetitle size20 bold" /><?php echo $fname." ".$lname;; ?></div>
+                        	<div class="user_name bluetitle size20 bold" />
+                            <?php //if($usealias=="1") 
+									//		echo $alias;
+										//  else 
+											echo $fname." ".$lname; ?>
+                        </div>
                          	<div class="ul_msg">
                             <ul>
-							    <li><a href="messages.php?mode=inbox&page=1">My Messages(<?php echo $inbox_items;?>)</a></li>
-                                <li><a href="myblog.php">My Blog</a></li>
-                            </ul>
-                            </div>   
-                        </div>
-                    </div>
-                    <div class="profile_links">
-                    	<div class="title_txt">
-                        	<div class="plusimg"><img src="images/plus_icon.jpg" /></div>
-                            <div class="txttitle whitetitle size12 bold">My Profile</div>
-                        </div>
-                        <div class="txt_links">
-                        	<ul>
-                            	<li><a href="editprofile.php?userid=<?php echo $_SESSION["userid"]; ?>">Account Settings</a></li>
-                                <li>
-                                    <a href="privacy.php">Privacy Settings</a>
-                                </li>
-                                <li>
-                                    <a href="myprofile.php">My Profile</a>
-                                </li>
-                                <li>
-                                    <a href="photos.php">My Photos</a>
-                                </li>
-                                <li>
-                                    <a href="myblog.php">My Blog</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="profile_links">
-                    	<div class="title_txt">
-                        	<div class="plusimg"><img src="images/plus_icon.jpg" /></div>
-                            <div class="txttitle whitetitle size12 bold">My Messages</div>
-                        </div>
-                        <div class="txt_links">
-                        	<ul>
-								<li><a href="messages.php?mode=inbox&page=1">My Messages(<?php echo $inbox_items;?>)</a></li>
-                               <li>
-                                    <a href="notifications.php">My Notifications</a>
-                                </li>
-                                <li>
-                                    <a href="myinterestmembers.php">Members With My Interest(<?php echo $disease_match_count-1;?>)</a>
-                                </li> 
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="profile_links">
-                    	<div class="title_txt">
-                        	<div class="plusimg"><img src="images/plus_icon.jpg" /></div>
-                            <div class="txttitle whitetitle size12 bold">Make a Difference</div>
-                        </div>
-                        <div class="txt_links">
-                        	<ul><li><a href="resources.php">Health Resources</a></li>  </ul>
-                            <ul>
-                                <li>
-                                    <a href="survey.php">Surveys</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="profile_links">
-                    	<div class="title_txt">
-                        	<div class="plusimg"><img src="images/plus_icon.jpg" /></div>
-                            <div class="txttitle whitetitle size12 bold">Connect with Others</div>
-                        </div>
-                        <div class="txt_links">
-                            <ul>
-                            	<li><a href="members.php">Search All Members</a></li>
-								<li><a href="reachout.php">Reach Out(<?php echo $ps_match_count;?>)</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                     <div class="profile_links">
-                    	<div class="title_txt">
-                        	<div class="plusimg"><img src="images/plus_icon.jpg" /></div>
-                            <div class="txttitle whitetitle size12 bold">My Interest Wall</div>
-                        </div>
-                        <div class="txt_links">
-                            <ul>
-                            	<li><a href="interest_wall.php">My Interest Wall</a></li><li><a href="friends_activity.php">My Friends Activity</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="profile_links">
-                    	<div class="title_txt">
-                        	<div class="plusimg"><img src="images/plus_icon.jpg" /></div>
-                            <div class="txttitle whitetitle size12 bold">My Contacts</div>
-                        </div>
-                        <div class="txt_links">
-                        	<ul>
-                            	<li><a href="myfriends.php">
-                                    My Friends (<?php echo $frnds_count;?>)
-                                </a></li>
-                                <li>
-                                    <a href="importcontacts.php">Import Contacts</a>
-                                </li>
-                                <li>
-                                    <a href="reqs.php">
-                                        Friend Requests (<?php echo $req_count;?>)
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
 
+                                <?php if($access_msg=="2" || ($access_msg=="3" && $isfriend==true))
+													{
+													?>
+                            	<li><a href="msgmember.php?recieverid=<?php echo $userid; ?>&senderid=<?php echo $viewerid; ?>">Send a Message</a></li>
+
+
+                                <?php 
+                                }
+                                if($access_blog=="2" || ($access_blog=="3" && $isfriend==true))
+													{
+													?>
+                                <li><a href="blog.php?userid=<?php echo $userid; ?>">View Blog</a></li>
+                                <?php
+													}
+													?>
+                            </ul>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="profile_links">
+                    	<div class="title_txt">
+                        	<div class="plusimg"><img src="images/plus_icon.jpg" /></div>
+                            <div class="txttitle whitetitle size12 bold">Profile</div>
+                        </div>
+                        <div class="txt_links">
+                        	<ul>
+                                <li>
+                                    <a href="viewprofile.php?userid=<?php echo $userid; ?>">View Profile</a>
+                                </li>
+                                <li>
+                                    <a href="userphotos.php?userid=<?php echo $userid; ?>">View Photos</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                <?php if($access_friends=="2" || ($access_friends=="3" && $isfriend==true))
+				{
+				?>
+                    <div class="profile_links">
+                    	<div class="title_txt">
+                        	<div class="plusimg"><img src="images/plus_icon.jpg" /></div>
+                            <div class="txttitle whitetitle size12 bold">Contacts</div>
+                        </div>
+                        <div class="txt_links">
+                        	<ul>
+                            	<li><a href="viewfriends.php?userid=<?php echo $userid; ?>">View Friends (<?php echo $frnds_count;?>)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                <?php 
+                }
+				?>
                 </div>
             </div>
           <div class="body_main">

@@ -400,6 +400,9 @@ $DID=$row_user_d["diseaseid"];
                                                     <?php
 				
 				    $users_id_array = array();
+				    
+				    $users_id_array[] = -200; 
+				    
 					$u_query="select * from tbluser where diseaseid='".$DID."'";
 					$res=mysql_query($u_query);	
 					if(mysql_num_rows($res)>0){
@@ -416,6 +419,10 @@ $DID=$row_user_d["diseaseid"];
 						$user_condition .= ")";
 					}
 					
+					
+					
+					
+					
 					$query_post=" 										
 					select 					
 					blogpostid,posttext,postimage,postvideo,postembedvideolink,postedbyuserid,postedonuserid,datetimeposted,privacylevel,
@@ -424,11 +431,55 @@ $DID=$row_user_d["diseaseid"];
 					from tblblogposts p 
 					where 1=1";
 					
+					
+					//////////////////////  GETTING THE USERS WITH COMMON INTERESTS////////////////////
+					
+					$m_query = sprintf ( "select * from tblsecondary_interests where userid='%s'", $userid );
+					$m_rslt = mysql_query ( $m_query );
+					
+					$secondary_interests_ids = "(".$disease_id;
+					while ( $m_rw = mysql_fetch_array ( $m_rslt ) ) {
+						$secondary_interests_ids .= ",".$m_rw['diseaseid'];
+					}
+					$secondary_interests_ids  .= ')';
+					
+					
+					$mquery_reqs=" 
+					SELECT tbluser.userid,CONCAT( fname, ' ', lname ) AS sendername, 
+					thumb_profile as profilepic,access_pic,strusertype,strdisease,usealias,
+					alias,					
+					access_msg,
+					access_pic
+					FROM tbluser
+					INNER JOIN tbldisease ON tbldisease.diseaseid=tbluser.diseaseid
+					INNER JOIN tblusertype ON tblusertype.usertypeid=tbluser.usertypeid
+					LEFT JOIN tblsecondary_interests on (tblsecondary_interests.userid = tbluser.userid)
+					WHERE tbluser.userid <> $userid
+					AND tbluser.isactive=1 
+					and (tbluser.diseaseid = $disease_id or  tblsecondary_interests.diseaseid IN $secondary_interests_ids)";
+					
+					$mrslt = mysql_query($mquery_reqs);
+					
+					$muser_ids_list = "(-100";
+					while ( $m_rw = mysql_fetch_array ( $mrslt ) ) {
+						$muser_ids_list .= ",".$m_rw['userid'];
+					}
+					$muser_ids_list  .= ')';
+
+					////////////////////////////////////////////////////////////////////////////////////////////////////
+					
 					if(count($users_id_array)>0){
-						$query_post .= " and postedonuserid in ".$user_condition;
+						$query_post .= " and ( postedonuserid in ".$user_condition." or postedonuserid in ".$muser_ids_list." )";
 					} 				
+					
+					
+					
+					
 					$query_post=$query_post." and privacylevel = 2 ";					
 					$query_post=$query_post." order by datetimeposted desc ";//limit 10";	
+					
+//					print '<pre>';  print_r($query_post); exit;
+					
 					$sql=mysql_query($query_post);
 					$count=mysql_num_rows($sql);
 					if($count>0)

@@ -2,7 +2,20 @@
 include "header_inner.php";
 
 require_once('classes/tc_calendar.php');
-
+?>
+<script>
+function ConfirmInterestDelete(diseaseid,userid)
+{
+	var result = confirm("Are you sure you want to Remove this Interest ?");
+	if (result==true)
+	{
+		
+		
+		window.location = "delete_secondary_interest.php?diseaseid="+diseaseid+"&userid="+userid;
+	}
+}
+</script>
+<?php 
 $thumb_listing='';
 $lname='';
 $email='';
@@ -881,7 +894,8 @@ $(document).ready(function(){
                                                 <option value="15"
                                                     <?php if ($m_rw["diseaseid"]=="15") echo "selected='selected'"; ?>>Other
                                                 </option>
-                                               
+                                               </select>&nbsp; <a style="font-size:10px;" href="javascript:ConfirmInterestDelete('<?php echo $m_rw["diseaseid"]; ?>','<?php echo $userid?>');">Remove</a>
+
                                         </td>
                                     </tr>	
 										

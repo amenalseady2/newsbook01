@@ -321,9 +321,18 @@ function exists_already($diseaseid, $userid) {
 	$m_query = sprintf ( "select * from tblsecondary_interests where userid='%s' and diseaseid='%s'", $userid, $diseaseid );
 	$m_rslt = mysql_query ( $m_query );
 	if(mysql_num_rows($m_rslt)>0){
+		
 		return true;
-	} else 
-		return false;
+	} else {
+		
+		
+		$m_query = sprintf ( "select * from tbluser where userid='%s' and diseaseid='%s'", $userid, $diseaseid );
+		$m_rslt = mysql_query ( $m_query );
+		if(mysql_num_rows($m_rslt)>0){
+			return true;
+		} else 
+			return false;
+	}
 	
 }
 ?>
