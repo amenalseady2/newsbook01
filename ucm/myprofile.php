@@ -540,7 +540,28 @@ else {
                                         <?php echo $item['privacy_item5']; ?>
                                     </td>
 		<td colspan="4" style="width: 561px;" align="left" class="size12">
-                                        <?php echo $disease; ?>
+                                        <?php echo $disease; 
+
+////////////////////////// SHOWING SECONDARY INTERESTS HERE //////////////////////////////////////                                        
+
+	$m_query = sprintf ( "select * from tblsecondary_interests where userid='%s'", $userid );
+	$m_rslt = mysql_query ( $m_query );
+	
+	while ( $m_rw = mysql_fetch_array ( $m_rslt ) ) {
+		
+		$query_for_disease_desc = sprintf("select * from tbldisease where diseaseid='%s'",$m_rw['diseaseid']);
+		$rs = mysql_query($query_for_disease_desc);
+		if(mysql_num_rows($rs)>0){
+			$disease_row = mysql_fetch_array ( $rs );
+			echo ", " . $disease_row['strdisease']  ;
+		}
+	}
+//////////////////////////////////////////////////////////////////////////////////////////////////                                        
+                                        
+                                        
+                                        
+?>                                      
+                                        
                                     </td>
 	</tr>
 	<tr>
